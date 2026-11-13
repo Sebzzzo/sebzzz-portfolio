@@ -90,10 +90,6 @@ export default function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end w-full">
           {/* LEFT BLOCK (Desktop: col-span-4, bottom-aligned / Mobile: centered) */}
           <div className="lg:col-span-4 space-y-4 animate-hero-left text-center lg:text-left flex flex-col items-center lg:items-start max-w-md lg:max-w-none mx-auto lg:mx-0">
-            <span className="font-[family-name:var(--font-script)] text-4xl lg:text-5xl text-[var(--accent)] -rotate-4 inline-block select-none">
-              Hola, soy
-            </span>
-
             <h1 className="font-[family-name:var(--font-display)] uppercase text-[clamp(3.5rem,8vw,7.5rem)] leading-[0.9] text-[var(--text)] tracking-tight">
               SEBASTIÁN<br />GARCÍA
             </h1>
@@ -114,7 +110,7 @@ export default function Hero() {
                 aria-hidden="true"
               />
               <span className="label text-[var(--muted)]">
-                BOGOTÁ, COLOMBIA · REMOTO
+                BOGOTÁ, COLOMBIA
               </span>
             </div>
           </div>

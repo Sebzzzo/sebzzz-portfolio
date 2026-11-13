@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
+import GooeyNav, { type GooeyNavItem } from "./GooeyNav";
 
 interface NavLink {
   name: string;
@@ -9,41 +10,27 @@ interface NavLink {
 }
 
 const NAV_LINKS: NavLink[] = [
+  { name: "Inicio", href: "#home" },
   { name: "Proyectos", href: "#projects" },
-  { name: "Proceso", href: "#process" },
   { name: "Sobre mí", href: "#about" },
   { name: "Contacto", href: "#contact" },
 ];
 
+const GOOEY_ITEMS: GooeyNavItem[] = [
+  { label: "Inicio", href: "#home" },
+  { label: "Proyectos", href: "#projects" },
+  { label: "Sobre mí", href: "#about" },
+  { label: "Contacto", href: "#contact" },
+];
+
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const lastScrollY = useRef(0);
-  const ticking = useRef(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!ticking.current) {
-        window.requestAnimationFrame(() => {
-          const currentScrollY = window.scrollY;
-
-          // Toggle frosted glass background after 20px
-          setIsScrolled(currentScrollY > 20);
-
-          // Hide on scroll down, reveal on scroll up
-          if (currentScrollY > lastScrollY.current && currentScrollY > 72) {
-            setIsVisible(false);
-          } else {
-            setIsVisible(true);
-          }
-
-          lastScrollY.current = currentScrollY <= 0 ? 0 : currentScrollY;
-          ticking.current = false;
-        });
-        ticking.current = true;
-      }
+      // Toggle frosted glass background after 20px
+      setIsScrolled(window.scrollY > 20);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -73,16 +60,12 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isMobileMenuOpen]);
 
-  const shouldShow = isVisible || isMobileMenuOpen;
-
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out border-b border-[var(--line-accent)] ${
-          shouldShow ? "translate-y-0" : "-translate-y-full"
-        } ${
+        className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ease-in-out border-b border-[var(--line-accent)] ${
           isScrolled
-            ? "bg-[rgba(10,10,10,0.7)] backdrop-blur-md"
+            ? "bg-[rgba(10,10,10,0.85)] backdrop-blur-md shadow-lg shadow-black/20"
             : "bg-transparent"
         }`}
       >
@@ -100,17 +83,25 @@ export default function Navbar() {
             </span>
           </div>
 
-          {/* Center: Desktop Navigation Links (≥ md) */}
-          <div className="hidden md:flex items-center gap-8">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="label text-[var(--muted)] hover:text-[var(--text)] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-[var(--accent)] hover:after:w-full after:transition-all after:duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] rounded"
-              >
-                {link.name}
-              </a>
-            ))}
+          {/* Center: Desktop GooeyNav Navigation (≥ md) */}
+          <div className="hidden md:flex items-center justify-center">
+            <GooeyNav
+              items={GOOEY_ITEMS}
+              initialActiveIndex={0}
+              theme="dark"
+              size="sm"
+              frame={true}
+              color="#D6141E"
+              activeTextColor="#ffffff"
+              colors={["#D6141E", "#7A0A10", "#FF4B55"]}
+              particleCount={15}
+              spread={46}
+              animationTime={600}
+              timeVariance={250}
+              gooeyness={0.5}
+              wobble={0.4}
+              hoverEffect={true}
+            />
           </div>
 
           {/* Right: Available status (Desktop ≥ md) */}

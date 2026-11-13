@@ -43,7 +43,7 @@ export default function Contact() {
                 </h2>
 
                 <p className="text-[14px] leading-[1.7] text-[var(--muted)] max-w-[320px]">
-                  Abierto a posiciones junior remotas, nuevos proyectos y
+                  Abierto a nuevas oportunidades, proyectos y
                   colaboraciones. Creemos productos web modernos con React,
                   TypeScript e inteligencia artificial.
                 </p>
